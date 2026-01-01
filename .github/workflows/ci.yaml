@@ -1,0 +1,26 @@
+name: HTTP Server Integration Test
+on: [push, pull_request]
+jobs:
+  integration-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Build Project
+        uses: threeal/cmake-action@v2.1.0
+        with:
+          source-dir: .
+          build-dir: build
+          generator: Ninja
+      - name: Launch server
+        run: |
+          ./build/basic-http-server &
+           echo $! > server.pid
+      - name: Run integration tests
+        run: ctest --test-dir build --output-on-failure --verbose
+      - name: Stop the server
+        if: always()
+        run: |
+          if [ -f server.pid ]; then
+            kill "$(cat server.pid)" || true
+          fi
