@@ -8,6 +8,7 @@
 #include <sys/types.h>
 #include <unistd.h>
 #include <fcntl.h>
+#include "utils.h"
 
 #define BUFSIZE 65536
 #define ERROR 42
@@ -21,13 +22,6 @@
 
 // TODO: Burde ha et opplegg for dynamisk portkonfigurasjon
 #define PORT 8080
-
-struct
-{
-    char *ext;
-    char *filetype;
-} extensions[] = {
-    {"gif", "image/gif"}, {"jpg", "image/jpg"}, {"jpeg", "image/jpeg"}, {"png", "image/png"}, {"ico", "image/ico"}, {"zip", "image/zip"}, {"gz", "image/gz"}, {"tar", "image/tar"}, {"htm", "text/html"}, {"html", "text/html"}, {0, 0}};
 
 void writePortFile(const char *filename, int port)
 {
