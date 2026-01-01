@@ -91,3 +91,5 @@ compile_flags.txt
 *.lib
 *.exe
 *.pdb
+
+server.port
