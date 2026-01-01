@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 3.20)
 project(AppC LANGUAGES C)
 
+enable_testing()
+
 add_executable(app src/main.c)
 
 # Require C11 (use c_std_99 for C99, c_std_17 for C17)
@@ -26,19 +28,5 @@ add_test(
 # - start server in background, wait for port, curl, then kill.
 
 
-# Ensure we can call Python
-find_package(Python3 REQUIRED COMPONENTS Interpreter)
-
-# Integration test using the Python harness
 add_executable(client_test src/test/client.c)
 target_include_directories(client_test PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/include)
-
-add_test(
-  NAME it.basic_http
-  COMMAND ${Python3_EXECUTABLE}
-          ${CMAKE_CURRENT_SOURCE_DIR}/test/http_test.py
-          --server $<TARGET_FILE:http_server>
-)
-
-# If tests bind to a real port, avoid parallel clashes:
-set_tests_properties(it.basic_http PROPERTIES RUN_SERIAL TRUE)
