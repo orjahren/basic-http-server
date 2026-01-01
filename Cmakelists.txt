@@ -1,0 +1,17 @@
+cmake_minimum_required(VERSION 3.20)
+project(AppC LANGUAGES C)
+
+add_executable(app src/main.c)
+
+# Require C11 (use c_std_99 for C99, c_std_17 for C17)
+target_compile_features(app PRIVATE c_std_11)
+
+# Include headers under include/
+target_include_directories(app PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/include)
+
+# Example: extra warnings
+if(CMAKE_C_COMPILER_ID MATCHES "GNU|Clang")
+  target_compile_options(app PRIVATE -Wall -Wextra -Wpedantic)
+elseif(MSVC)
+  target_compile_options(app PRIVATE /W4)
+endif()

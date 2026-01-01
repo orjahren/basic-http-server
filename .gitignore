@@ -53,3 +53,41 @@ dkms.conf
 
 # debug information files
 *.dwo
+
+# CMake build trees (out-of-source)
+build/
+build-*/
+cmake-build-*/
+
+# CMake-generated files if anyone accidentally configures in-source
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+CTestTestfile.cmake
+_install/
+Testing/
+
+# Generators
+Makefile
+*.ninja
+.ninja_deps
+.ninja_log
+
+# IDE/project files produced by CMake generators
+*.sln
+*.vcxproj*
+*.xcodeproj
+*.xcworkspace
+
+# Common outputs
+compile_commands.json
+compile_flags.txt
+*.obj
+*.o
+*.a
+*.so
+*.dylib
+*.dll
+*.lib
+*.exe
+*.pdb
