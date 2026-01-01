@@ -8,7 +8,7 @@
       "binaryDir": "build/debug",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Debug",
-        "CMAKE_C_STANDARD": 11,
+        "CMAKE_C_STANDARD": "11",
         "CMAKE_EXPORT_COMPILE_COMMANDS": true
       }
     },
@@ -30,4 +30,3 @@
     { "name": "release", "configurePreset": "release" }
   ]
 }
-
