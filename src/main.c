@@ -72,29 +72,33 @@ int startHttpServer(int port)
         perror("bind failed");
         exit(EXIT_FAILURE);
     }
-    if (listen(server_fd, 3) < 0)
+    while (1)
     {
-        perror("listen");
-        exit(EXIT_FAILURE);
-    }
-    if ((new_socket = accept(server_fd, (struct sockaddr *)&address,
-                             &addrlen)) < 0)
-    {
-        perror("accept");
-        exit(EXIT_FAILURE);
-    }
 
-    // subtract 1 for the null
-    // terminator at the end
-    valread = read(new_socket, buffer,
-                   1024 - 1);
-    printf("%s\n", buffer);
-    printf("Size read: %zd\n", valread);
-    send(new_socket, hello, strlen(hello), 0);
-    printf("Hello message sent\n");
+        if (listen(server_fd, 3) < 0)
+        {
+            perror("listen");
+            exit(EXIT_FAILURE);
+        }
+        if ((new_socket = accept(server_fd, (struct sockaddr *)&address,
+                                 &addrlen)) < 0)
+        {
+            perror("accept");
+            exit(EXIT_FAILURE);
+        }
 
-    // closing the connected socket
-    close(new_socket);
+        // subtract 1 for the null
+        // terminator at the end
+        valread = read(new_socket, buffer,
+                       1024 - 1);
+        printf("%s\n", buffer);
+        printf("Size read: %zd\n", valread);
+        send(new_socket, hello, strlen(hello), 0);
+        printf("Hello message sent\n");
+
+        // closing the connected socket
+        close(new_socket);
+    }
 
     // closing the listening socket
     close(server_fd);
