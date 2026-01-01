@@ -22,7 +22,7 @@ find_program(CURL curl REQUIRED)
 
 add_test(
   NAME smoke.root
-  COMMAND ${CURL} --fail --silent --show-error --http0.9 http://127.0.0.1:8080/
+  COMMAND ${CURL} --fail --silent --show-error http://127.0.0.1:8080/
 )
 # You still need a way to start/stop the server. One option is a small script:
 # - start server in background, wait for port, curl, then kill.
@@ -30,3 +30,5 @@ add_test(
 
 add_executable(client_test src/test/client.c)
 target_include_directories(client_test PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/include)
+
+add_test(NAME client.loopback COMMAND client_test)
